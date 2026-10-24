@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live2D Player</title>
+  </head>
+  <body>
+    <main class="player">
+      <section class="stage" aria-label="Live2D scene preview">
+        <canvas id="scene" aria-label="Live2D scene"></canvas>
+        <button id="expand" class="stage-expand" type="button" aria-label="画面を拡大">拡大</button>
+        <div id="status" role="status">読み込み中…</div>
+      </section>
+      <footer class="controls">
+        <div class="scene-options">
+          <div class="option-group mode-group"><label for="play-mode">再生モード</label><select id="play-mode" disabled>
+            <option value="story-once">台本どおり再生（Scene音声・演技同期）</option><option value="story-loop">台本全体をループ</option><option value="scene-once">選択モーションを試聴</option><option value="scene-loop">選択モーションをループ試聴</option>
+          </select></div>
+          <div class="option-group"><label for="scene-select">試聴モーション <span id="scene-counter"></span></label><select id="scene-select" disabled></select></div>
+          <div class="option-group voice-group"><label for="voice-select">手動試聴する台詞voice</label><select id="voice-select" disabled></select>
+            <small class="voice-note">台本モードはScene側BGVを自動再生。台詞声の尺で進行を同期</small>
+          </div>
+        </div>
+        <div class="timeline-block">
+          <div class="timeline-head"><span id="hint">ローカル素材のみを使用します</span><span><time id="current-time">0:00</time> / <time id="duration-time">0:00</time></span></div>
+          <input id="timeline" type="range" min="0" max="1" step="0.01" value="0" disabled aria-label="シーンの再生位置" />
+        </div>
+        <div class="transport">
+          <button id="back" type="button" disabled aria-label="5秒戻る">−5秒</button>
+          <button id="play" type="button" disabled>再生</button>
+          <button id="next-scene" type="button" disabled aria-label="次のSceneへ進む">次のSceneへ</button>
+          <button id="forward" type="button" disabled aria-label="5秒進む">＋5秒</button>
+          <button id="record" type="button" disabled>録画開始</button>
+        </div>
+      </footer>
+      <audio id="voice-audio" preload="metadata"></audio>
+      <audio id="background-voice-audio" preload="metadata"></audio>
+    </main>
+    <script>
+      window.addEventListener('error', (event) => {
+        const status = document.querySelector('#status');
+        if (status) status.textContent = `JavaScript読込エラー: ${event.message || event.type}`;
+      });
+      window.addEventListener('unhandledrejection', (event) => {
+        const status = document.querySelector('#status');
+        if (status) status.textContent = `初期化エラー: ${event.reason?.message || String(event.reason)}`;
+      });
+    </script>
+    <script type="module" src="/src/player.js?v=cubism5"></script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+node_modules/
+dist/
+public/vendor/live2dcubismcore.js
+public/vendor/live2dcubismcore.wasm
+*.webm
+
+# Local-only character, motion, audio, and story files. Never publish game assets.
+data/
+public/assets/**
+public/data/**
+docs/ASSET_PIPELINE.md
+docs/SYNC_TIMING_RESEARCH.md
+tools/
+requirements.txt
+tests/test_prepare_assets.py
+tests/test_convert_scene.py
+
+# Extracted or generated content and local Python caches.
+*.moc3
+*.acb
+*.awb
+*.mp4
+*.m4a
+*.wav
+*.png
+*.pyc
+**/__pycache__/
